@@ -1,25 +1,26 @@
 "use client";
 
 import Color from "color";
-import React, { useState } from "react";
+import { Shuffle } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { getColorShades } from "~/utils/get-color-shades";
-import { parseHslToString } from "~/utils/parse-hsl-to.string";
+import { getRandomHexColor } from "~/utils/get-random-hex-color";
+import { parseHslToString } from "~/utils/parse-hsl-to-string";
 
 const DEFAULT_COLOR = "#1d2f77";
+const INVALID_COLOR_ERROR = "Invalid Color! 😡";
 
 export default function ColorForm() {
-  const [colorShades, setColorShades] = useState<string[]>([]);
+  const [color, setColor] = useState(DEFAULT_COLOR);
   const [error, setError] = useState("");
+  const [colorShades, setColorShades] = useState<string[]>([]);
 
-  function handleCreateShades(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  function handleRandomColor() {
+    setColor(getRandomHexColor());
+  }
 
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-
-    const color = formData.get("color") as string;
-    if (!color) return setError("Invalid Color");
-
+  useEffect(() => {
+    if (!color) return setError(INVALID_COLOR_ERROR);
     setError("");
 
     try {
@@ -35,27 +36,38 @@ export default function ColorForm() {
 
       setColorShades(shades);
     } catch (e) {
-      setError("Invalid Color");
+      setError(INVALID_COLOR_ERROR);
     }
-  }
+  }, [color]);
 
   return (
     <div>
-      <form onSubmit={handleCreateShades} className="flex flex-col gap-1">
-        <label htmlFor="color" className="text-sm font-semibold">
+      <form className="flex flex-col">
+        <label htmlFor="color" className="font-semibold tracking-tight">
           Color:
         </label>
-        <input
-          id="color"
-          name="color"
-          type="text"
-          placeholder={`${DEFAULT_COLOR}...`}
-          className="rounded border-neutral-400 placeholder:text-neutral-500"
-        />
-        {error && <p className="text-red-500">{error}</p>}
-        <button className="mt-4 rounded bg-neutral-950 px-4 py-2.5 font-semibold text-white">
-          Create Shades
-        </button>
+        <div className="mt-0.5 flex gap-2">
+          <input
+            id="color"
+            name="color"
+            type="text"
+            value={color}
+            onChange={(event) => setColor(event.target.value)}
+            placeholder={`${DEFAULT_COLOR}...`}
+            className="flex-1 rounded border-neutral-400 placeholder:text-neutral-500"
+          />
+          <button
+            type="button"
+            aria-label="Random Color"
+            onClick={handleRandomColor}
+            className="text-neutral-500 transition-colors hover:text-neutral-950"
+          >
+            <Shuffle className="size-6" />
+          </button>
+        </div>
+        <p className="min-h-6 text-base text-red-500">
+          {!!error ? error : null}
+        </p>
       </form>
       <div className="mt-4 flex gap-1">
         {colorShades.map((colorShade, i) => (
