@@ -19,7 +19,7 @@ export default function RootLayout({ children }: Readonly<Props>) {
   return (
     <html lang="en">
       <body
-        className={`${GeistSans.variable} ${GeistMono.variable} antialiased font-sans text-neutral-950`}
+        className={`${GeistSans.variable} ${GeistMono.variable} antialiased font-sans text-neutral-950 overflow-x-hidden`}
       >
         {children}
       </body>
