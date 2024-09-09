@@ -4,7 +4,7 @@ import Color from "color";
 import { useEffect, useState } from "react";
 
 interface Props {
-  css: CSSStyleDeclaration;
+  css: CSSStyleDeclaration | null;
   colorNumber: number;
   className: string;
 }
@@ -17,7 +17,8 @@ export default function ColorPreview({
   const [colorCode, setColorCode] = useState("#------");
 
   useEffect(() => {
-    const hslColor = css.getPropertyValue(`--primary-${colorNumber}`);
+    const hslColor =
+      css?.getPropertyValue(`--primary-${colorNumber}`) ?? "hsl(0, 0%, 0%)";
     const hexColor = new Color(hslColor).hex();
 
     setColorCode(hexColor);

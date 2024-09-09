@@ -8,10 +8,15 @@ interface Props {
   color: string;
 }
 
+const isServer = typeof window === "undefined";
+
 export default function ColorShadesPreview({ color }: Readonly<Props>) {
-  const [css, setCss] = useState(getComputedStyle(document.body));
+  const [css, setCss] = useState(() =>
+    isServer ? null : getComputedStyle(document.body)
+  );
 
   useEffect(() => {
+    if (isServer) return;
     setCss(getComputedStyle(document.body));
   }, [color]);
 
