@@ -1,3 +1,5 @@
+"use client";
+
 import { FileJson } from "lucide-react";
 import { useEffect, useState } from "react";
 import ColorPreview from "./color-preview";
@@ -24,7 +26,7 @@ export default function ColorShadesPreview({ color }: Readonly<Props>) {
           Export
         </button>
       </header>
-      <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-5">
+      <ul className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-5">
         <ColorPreview css={css} colorNumber={900} className="bg-primary-900" />
         <ColorPreview css={css} colorNumber={800} className="bg-primary-800" />
         <ColorPreview css={css} colorNumber={700} className="bg-primary-700" />
@@ -35,7 +37,7 @@ export default function ColorShadesPreview({ color }: Readonly<Props>) {
         <ColorPreview css={css} colorNumber={200} className="bg-primary-200" />
         <ColorPreview css={css} colorNumber={100} className="bg-primary-100" />
         <ColorPreview css={css} colorNumber={50} className="bg-primary-50" />
-      </div>
+      </ul>
     </section>
   );
 }

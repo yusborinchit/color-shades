@@ -24,10 +24,10 @@ export default function ColorPreview({
   }, [css, colorNumber]);
 
   return (
-    <div className={`aspect-square relative rounded ${className}`}>
+    <li className={`aspect-square relative rounded ${className}`}>
       <span className="absolute bottom-2 right-2 rounded bg-primary-50 px-1 py-0.5 font-mono text-xs">
         {colorCode}
       </span>
-    </div>
+    </li>
   );
 }
