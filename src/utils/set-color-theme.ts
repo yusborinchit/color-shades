@@ -9,5 +9,4 @@ export function setColorTheme(colorShades: string[]) {
   document.body.style.setProperty("--primary-700", `hsl(${colorShades[3]})`);
   document.body.style.setProperty("--primary-800", `hsl(${colorShades[2]})`);
   document.body.style.setProperty("--primary-900", `hsl(${colorShades[1]})`);
-  document.body.style.setProperty("--primary-950", `hsl(${colorShades[0]})`);
 }

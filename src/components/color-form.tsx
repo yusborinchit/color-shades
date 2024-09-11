@@ -1,15 +1,21 @@
 "use client";
 
 import { Shuffle } from "lucide-react";
-import { DEFAULT_COLOR, useColor } from "~/hooks/use-color";
+import { DEFAULT_COLOR } from "~/hooks/use-color";
 
 interface Props {
-  onNewColor: (newColor: string) => void;
+  color: string;
+  error: string;
+  changeColor: (newColor: string) => void;
+  randomColor: () => void;
 }
 
-export default function ColorForm({ onNewColor }: Readonly<Props>) {
-  const { color, error, changeColor, randomColor } = useColor(onNewColor);
-
+export default function ColorForm({
+  color,
+  error,
+  changeColor,
+  randomColor,
+}: Readonly<Props>) {
   return (
     <form className="mx-auto mt-4 flex max-w-sm flex-col gap-1">
       <div className="mt-0.5 flex gap-2">

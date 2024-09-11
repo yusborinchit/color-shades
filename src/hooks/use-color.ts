@@ -10,8 +10,9 @@ import { setColorTheme } from "~/utils/set-color-theme";
 export const DEFAULT_COLOR = "#1D2F77";
 export const INVALID_COLOR_ERROR = "Invalid Color! 😡";
 
-export function useColor(onNewColor: (newColor: string) => void) {
+export function useColor() {
   const [color, setColor] = useState(DEFAULT_COLOR);
+  const [colorShades, setColorShades] = useState(() => getColorShades(0, 0));
   const [error, setError] = useState("");
 
   function changeColor(newColor: string) {
@@ -32,15 +33,16 @@ export function useColor(onNewColor: (newColor: string) => void) {
       const saturation = hsl.saturationl();
 
       const shadesValues = getColorShades(hue, saturation);
+      setColorShades(shadesValues);
+
       const shades = shadesValues.map(parseHslToString);
       setColorTheme(shades);
-      onNewColor(color);
 
       setError("");
     } catch (e) {
       setError(INVALID_COLOR_ERROR);
     }
-  }, [color, onNewColor]);
+  }, [color]);
 
-  return { color, error, changeColor, randomColor };
+  return { color, colorShades, error, changeColor, randomColor };
 }
