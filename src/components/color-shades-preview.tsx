@@ -31,7 +31,7 @@ export default function ColorShadesPreview({ hexCodes }: Readonly<Props>) {
           hexCodes={hexCodes}
         />
       </header>
-      <ul className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-5">
+      <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-5">
         <ColorPreview hexCode={hexCodes[10]} className="bg-primary-900" />
         <ColorPreview hexCode={hexCodes[9]} className="bg-primary-800" />
         <ColorPreview hexCode={hexCodes[8]} className="bg-primary-700" />
@@ -42,7 +42,7 @@ export default function ColorShadesPreview({ hexCodes }: Readonly<Props>) {
         <ColorPreview hexCode={hexCodes[3]} className="bg-primary-200" />
         <ColorPreview hexCode={hexCodes[2]} className="bg-primary-100" />
         <ColorPreview hexCode={hexCodes[1]} className="bg-primary-50" />
-      </ul>
+      </div>
     </section>
   );
 }
