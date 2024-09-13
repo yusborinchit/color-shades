@@ -14,8 +14,7 @@
     "lucide-react": "^0.439.0",
     "next": "14.2.8",
     "react": "^18",
-    "react-dom": "^18",
-    "sonner": "^1.5.0"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.9",

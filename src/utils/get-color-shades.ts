@@ -1,11 +1,15 @@
-export function getColorShades(hue: number, saturation: number) {
-  const shades = Array.from({ length: 11 }).map((_, i) => ({
-    hue,
-    saturation,
-    lightness: 10 * i,
-  }));
+import Color from "color";
 
-  shades[10].lightness = 96;
+const LIGHTNESS_VALUES = [5, 10, 20, 30, 40, 50, 60, 70, 80, 90];
 
-  return shades;
+export function getColorShades(hexColor: string) {
+  const hsl = new Color(hexColor, "hex").hsl();
+
+  const hue = hsl.hue();
+  const saturation = hsl.saturationl();
+
+  return LIGHTNESS_VALUES.map((lightness) => {
+    const hsl = `hsl(${hue},${saturation}%,${lightness}%)`;
+    return new Color(hsl, "hsl").hex();
+  });
 }

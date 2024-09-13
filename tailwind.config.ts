@@ -24,7 +24,6 @@ const config: Config = {
           700: "var(--primary-700,#404040)",
           800: "var(--primary-800,#262626)",
           900: "var(--primary-900,#171717)",
-          950: "var(--primary-950,#0a0a0a)",
         },
       },
     },
