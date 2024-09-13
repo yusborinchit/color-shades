@@ -1,18 +1,24 @@
 "use client";
 
 import { Copy, SquareArrowOutUpRight } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import ColorPreview from "./color-preview";
 import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 
 interface Props {
   title: string;
@@ -26,28 +32,44 @@ export default function PalettePreview({
   palette,
 }: Readonly<Props>) {
   const [isOpen, setIsOpen] = useState(false);
+  const [format, setFormat] = useState("tailwind");
 
-  const tailwindColors = JSON.stringify(
-    {
-      [varName]: {
-        50: palette[0],
-        100: palette[1],
-        200: palette[2],
-        300: palette[3],
-        400: palette[4],
-        500: palette[5],
-        600: palette[6],
-        700: palette[7],
-        800: palette[8],
-        900: palette[9],
+  const content = useMemo(() => {
+    const tailwindColors = JSON.stringify(
+      {
+        [varName]: {
+          50: palette[0],
+          100: palette[1],
+          200: palette[2],
+          300: palette[3],
+          400: palette[4],
+          500: palette[5],
+          600: palette[6],
+          700: palette[7],
+          800: palette[8],
+          900: palette[9],
+        },
       },
-    },
-    null,
-    2
-  );
+      null,
+      2
+    );
+
+    const cssColors = `--${varName}-50: ${palette[0]};
+  --${varName}-100: ${palette[1]};
+  --${varName}-200: ${palette[2]};
+  --${varName}-300: ${palette[3]};
+  --${varName}-400: ${palette[4]};
+  --${varName}-500: ${palette[5]};
+  --${varName}-600: ${palette[6]};
+  --${varName}-700: ${palette[7]};
+  --${varName}-800: ${palette[8]};
+  --${varName}-900: ${palette[9]};`;
+
+    return format === "tailwind" ? tailwindColors : cssColors;
+  }, [format, palette, varName]);
 
   function copyToClipboard() {
-    navigator.clipboard.writeText(tailwindColors);
+    navigator.clipboard.writeText(content);
   }
 
   return (
@@ -60,17 +82,25 @@ export default function PalettePreview({
               <SquareArrowOutUpRight className="size-7" />
             </button>
           </DialogTrigger>
-          <DialogContent className="max-w-[425px]">
+          <DialogContent className="max-w-[500px]">
             <DialogHeader>
-              <DialogTitle className="text-3xl font-bold">
-                Export Colors
-              </DialogTitle>
-              <DialogDescription>
-                Export your colors directly to your Tailwind CSS config file.
-              </DialogDescription>
+              <div className="flex flex-col items-center justify-between gap-2 sm:flex-row">
+                <DialogTitle className="text-3xl font-bold">
+                  Export Colors
+                </DialogTitle>
+                <Select onValueChange={(v) => setFormat(v)} value={format}>
+                  <SelectTrigger className="w-full sm:w-[180px]">
+                    <SelectValue placeholder="Format" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="tailwind">TailwindCSS</SelectItem>
+                    <SelectItem value="css">CSS Properties</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </DialogHeader>
             <pre className="relative rounded bg-neutral-200 p-4 text-neutral-500">
-              {tailwindColors}
+              {content}
               <button
                 aria-label="Copy to Clipboard"
                 onClick={copyToClipboard}
