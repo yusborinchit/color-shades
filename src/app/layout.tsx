@@ -3,7 +3,6 @@ import "~/styles/globals.css";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
-import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Color Shades | A new way to see colors",
@@ -23,7 +22,6 @@ export default function RootLayout({ children }: Readonly<Props>) {
         className={`${GeistSans.variable} ${GeistMono.variable} antialiased font-sans text-neutral-950 overflow-x-hidden`}
       >
         {children}
-        <Toaster />
       </body>
     </html>
   );
