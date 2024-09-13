@@ -22,9 +22,14 @@ export default function Home() {
           randomColor={randomColor}
         />
         <section className="mx-auto mt-12 flex max-w-screen-md flex-col gap-12 px-8">
-          <PalettePreview title="Primary Palette" palette={palette.primary} />
+          <PalettePreview
+            title="Primary Palette"
+            varName="primary"
+            palette={palette.primary}
+          />
           <PalettePreview
             title="Complementary Palette"
+            varName="complementary"
             palette={palette.complementary}
           />
         </section>
