@@ -34,6 +34,8 @@ export function useColor() {
   useEffect(() => {
     if (!isValidColor(color)) return setError(INVALID_COLOR_ERROR);
 
+    setError("");
+
     const complementary = getComplementaryColor(color);
 
     const primaryShades = getColorShades(color);
